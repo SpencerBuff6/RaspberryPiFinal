@@ -7,7 +7,11 @@ $_SESSION["loggedin"] = false;
 $_SESSION["id"] = null;
 $_SESSION["username"] = null;
 
-$_SESSION["games"] = [
+$_SESSION["characters"] = [
+
+];
+
+$_SESSION["dndCharacters"] = [
 
 ];
 
