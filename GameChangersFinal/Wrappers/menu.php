@@ -1,0 +1,50 @@
+<?php
+session_start();
+// Logged Out Menu
+$menuOut = [
+    0 => [
+        0 => "Home Page",
+        1 => "../index.php"
+    ],
+    1 => [
+        0 => "Log In",
+        1 => "../Login.php"
+    ],
+    2 => [
+        0 => "Register Account",
+        1 => "../Register.php"
+    ]
+];
+
+// Logged In Menu
+$menuIn = [
+    0 => [
+        0 => "Home Page",
+        1 => "../index.php"
+    ],
+    1 => [
+        0 => "Add Character",
+        1 => "../AddCharacter.php"
+    ],
+    2 => [
+        0 => "Add D&D Character",
+        1 => "../AddDndCharacter.php"
+    ],
+    3 => [
+        0 => "Log Out",
+        1 => "../Logout.php"
+    ]
+];
+
+$menu = (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) ? $menuIn : $menuOut;
+
+?>
+
+<br />
+<?php
+    foreach ($menu as [$name, $link])
+    {
+        echo "<a href=$link> $name</a> &nbsp; &nbsp;";
+    }
+?>
+<br />
