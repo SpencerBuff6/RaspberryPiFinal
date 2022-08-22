@@ -60,7 +60,7 @@ if(isset($_POST['characterName']) &&
                             {
                                 mysqli_stmt_bind_param($stmt, "ii", $tempUserId, $tempCharacterId);
 
-                                // If UserGameTable Inserted Into
+                                // If UserCharacterTable Inserted Into
                                 if(mysqli_stmt_execute($stmt))
                                 {
                                     SetCharsByUser($_SESSION["id"]);

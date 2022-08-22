@@ -34,39 +34,73 @@ $Header = "Game Changers Character Creator";
 
 $Style = $_SESSION['style'];
 
-//function SetGamesByUser($uId)
-//{
-//    /*
-//    UserTable UserGameTable Game Table
-//    UserTable.UserId -> UserGameTable.GameId    ->  GameTable.*
+function SetCharsByUser($uId)
+{
+    /*
+    UserTable UserCharacterTable CharacterTable
+    UserTable.UserId -> UserCharacterTable.CharacterId    ->  CharacterTable.*
 
-//    Get All Game Info From GameTable By Filtering UserGameTable On UserId
-//     */
-//    $sql4 = "SELECT g.GameName, g.ReleaseDate, g.Genre, g.Rating, g.GameId
-//                                               FROM UserGameTable as ug
-//                                               LEFT JOIN UserTable as u
-//                                               ON ug.UserId = u.UserId
-//                                               LEFT JOIN GameTable as g
-//                                               ON g.GameId = ug.GameId
-//                                               WHERE ug.UserId = $uId";
-//    if($res = mysqli_query($_SESSION["link"], $sql4))
-//    {
-//        $results = array();
-//        while ($games = mysqli_fetch_assoc($res))
-//        {
-//            $results[] = $games;
-//        }
+    Get All Character Info From CharacterTable By Filtering UserCharacterTable On UserId
+     */
+    $sql4 = "SELECT c.Name, c.Gender, c.Height, c.Weight, c.Age, c.Hair, c.EyeColor, c.Race, c.AdditionalDetails, c.CharacterId
+                                               FROM UserCharacterTable as uc
+                                               LEFT JOIN UserTable as u
+                                               ON uc.UserId = u.UserId
+                                               LEFT JOIN CharacterTable as c
+                                               ON c.CharacterId = uc.CharacterId
+                                               WHERE ug.UserId = $uId";
+    if($res = mysqli_query($_SESSION["link"], $sql4))
+    {
+        $results = array();
+        while ($games = mysqli_fetch_assoc($res))
+        {
+            $results[] = $games;
+        }
 
-//        $_SESSION["games"] = $results;
+        $_SESSION["characters"] = $results;
 
-//        for ($i = 0; $i < count($_SESSION['games']); $i++)
-//        {
-//            $_SESSION["games"][$i] = array_combine(range(0, count($_SESSION["games"][$i])-1),
-//                                               array_values($_SESSION["games"][$i])
-//                                               );
-//        }
-//    }
-//}
+        for ($i = 0; $i < count($_SESSION['characters']); $i++)
+        {
+            $_SESSION["characters"][$i] = array_combine(range(0, count($_SESSION["characters"][$i])-1),
+                                               array_values($_SESSION["characters"][$i])
+                                               );
+        }
+    }
+}
+
+function SetDndCharsByUser($uId)
+{
+    /*
+    UserTable UserDndCharacterTable DndCharacterTable
+    UserTable.UserId -> UserDndCharacterTable.DndCharacterId    ->  DndCharacterTable.*
+
+    Get All D&D Character Info From DndCharacterTable By Filtering UserDndCharacterTable On UserId
+     */
+    $sql4 = "SELECT c.Name, c.Race, c.Class, c.Level, c.MaxHealth, c.Strength, c.Dexterity, c.Constitution, c.Intelligence, c.Wisdom, c.Charisma, c.AdditionalDetails, c.DndCharacterId
+                                               FROM UserDndCharacterTable as uc
+                                               LEFT JOIN UserTable as u
+                                               ON uc.UserId = u.UserId
+                                               LEFT JOIN DndCharacterTable as c
+                                               ON c.DndCharacterId = uc.DndCharacterId
+                                               WHERE ug.UserId = $uId";
+    if($res = mysqli_query($_SESSION["link"], $sql4))
+    {
+        $results = array();
+        while ($games = mysqli_fetch_assoc($res))
+        {
+            $results[] = $games;
+        }
+
+        $_SESSION["dndCharacters"] = $results;
+
+        for ($i = 0; $i < count($_SESSION['dndCharacters']); $i++)
+        {
+            $_SESSION["dndCharacters"][$i] = array_combine(range(0, count($_SESSION["dndCharacters"][$i])-1),
+                                               array_values($_SESSION["dndCharacters"][$i])
+                                               );
+        }
+    }
+}
 
 ?>
 <head>
