@@ -118,7 +118,7 @@ if(isset($_POST['dndcharacterName']) &&
         <label for="dndcharacterIntelligence">Intelligence:</label><input type="text" name="dndcharacterIntelligence" size="20" /><br />
         <label for="dndcharacterWisdom">Wisdom:</label><input type="text" name="dndcharacterWisdom" size="20" /><br />
         <label for="dndcharacterChrisma">Chrisma:</label><input type="text" name="dndcharacterCharisma" size="20" /><br />
-        <label for="dndcharacterAdditionalDetails">AdditionalDetails:</label><input type="text" name="dndcharacterAdditionalDetails" size="20" /><br />
+        <label for="dndcharacterAdditionalDetails">Additional Details:</label><input type="text" name="dndcharacterAdditionalDetails" size="20" value=" " /><br />
 
     </fieldset>
     <input class="btn" type="submit" name="DndCharSubmit" value="Add D&D Character" />

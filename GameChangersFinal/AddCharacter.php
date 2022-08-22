@@ -109,7 +109,7 @@ if(isset($_POST['characterName']) &&
         <label for="characterHair">Hair Details:</label><input type="text" name="characterHair" size="20" /><br />
         <label for="characterEye">Eye Color</label><input type="text" name="characterEyes" size="20" /><br />
         <label for="characterRace">Race:</label><input type="text" name="characterRace" size="20" /><br />
-        <label for="characterDetails">Additional Details:</label><input type="text" name="characterDetails" size="20" /><br />
+        <label for="characterDetails">Additional Details:</label><input type="text" name="characterDetails" size="20" value=" " /><br />
     </fieldset>
     <input class="btn" type="submit" name="CharSubmit" value="Add Character" />
 </form>
