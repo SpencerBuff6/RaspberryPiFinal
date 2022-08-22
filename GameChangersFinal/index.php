@@ -36,11 +36,11 @@ function DeleteDndChar(int $index)
     $gId = $_SESSION["dndCharacters"][$index][12];
 
     // Delete From UserDndCharacterTable
-    $sql = "DELETE FROM UserDndCharacterTable WHERE DndCharacterId = $gId";
+    $sql = "DELETE FROM UserDndCharacterTable WHERE dndCharacterId = $gId";
     mysqli_query($_SESSION["link"], $sql);
 
     // Delete From DndCharacterTable
-    $sql2 = "DELETE FROM DndCharacterTable WHERE DndCharacterId = $gId";
+    $sql2 = "DELETE FROM dndCharacterTable WHERE dndCharacterId = $gId";
     mysqli_query($_SESSION["link"], $sql2);
 
     SetDndCharsByUser($_SESSION["id"]);
@@ -55,21 +55,21 @@ if (isset($_POST['EditChar']))
 {
     $_SESSION['EditIds'] = [
         $_POST['EditChar'],
-        $_SESSION["games"][$_POST['EditChar']][4]
+        $_SESSION["characters"][$_POST['EditChar']][9]
     ];
     header("location: EditChar.php");
 }
 
 if (isset($_POST['DeleteDndChar']))
 {
-    DeleteGame($_POST['DeleteDndChar']);
+    DeleteDndChar($_POST['DeleteDndChar']);
 }
 
 if (isset($_POST['EditDndChar']))
 {
     $_SESSION['EditIds'] = [
         $_POST['EditDndChar'],
-        $_SESSION["games"][$_POST['EditDndChar']][4]
+        $_SESSION["dndCharacters"][$_POST['EditDndChar']][12]
     ];
     header("location: EditDndChar.php");
 }
@@ -120,10 +120,10 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SE
                 Additional Details
             </th>
             <th>
-                Edit?
+                Delete?
             </th>
             <th>
-                Delete?
+                Edit?
             </th>
         </tr>";
     for($i = 0; $i < count($_SESSION["characters"]); $i++)
@@ -173,6 +173,10 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SE
     echo "</table>";
 }
 
+echo "<br />";
+echo "<br />";
+echo "<br />";
+
 if (isset($_SESSION['loggedin']) && isset($_SESSION["dndCharacters"]) && count($_SESSION["dndCharacters"]) > 0)
 {
     echo "
@@ -212,7 +216,7 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["dndCharacters"]) && count($
                 Charisma
             </th>
             <th>
-                AdditionalDetails
+                Additional Details
             </th>
             <th>
                 Delete?

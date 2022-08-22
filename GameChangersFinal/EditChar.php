@@ -29,7 +29,7 @@ if(isset($_POST['characterName']) &&
 
     $tempCharId = $_SESSION['EditIds'][1];
 
-    $sql = "UPDATE CharacterTable SET Name = '$tempName', Gender = '$tempGender', Height = '$tempHeight', Weight = '$tempWeight', Age = $tempAge, Hair = '$tempHair', Eyes = '$tempEyes', Race = '$tempRace', AdditionalDetails = '$tempDetails' WHERE CharacterId = $tempCharId";
+    $sql = "UPDATE CharacterTable SET Name = '$tempName', Gender = '$tempGender', Height = '$tempHeight', Weight = '$tempWeight', Age = $tempAge, Hair = '$tempHair', EyeColor = '$tempEyes', Race = '$tempRace', AdditionalDetails = '$tempDetails' WHERE CharacterId = $tempCharId";
 
     mysqli_query($_SESSION["link"], $sql);
     SetCharsByUser($_SESSION["id"]);
@@ -47,7 +47,7 @@ if(isset($_POST['characterName']) &&
     <fieldset>
         <label for="characterName">Name:</label><input type="text" name="characterName" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][0] ?>" size="20" /><br />
         <label for="characterGender">Gender:</label><input type="text" name="characterGender" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][1] ?>" size="20" /><br />
-        <label for="characterHeight">Height:</label><input type="text" name="characterHeight" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][2] ?>" size="20" /><br />
+        <label for="characterHeight">Height (in meters):</label><input type="text" name="characterHeight" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][2] ?>" size="20" /><br />
         <label for="characterWeight">Weight:</label><input type="text" name="characterWeight" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
         <label for="characterAge">Age:</label><input type="text" name="characterAge" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][4] ?>" size="20" /><br />
         <label for="characterHair">Hair Details:</label><input type="text" name="characterHair" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][5] ?>" size="20" /><br />

@@ -48,7 +48,7 @@ function SetCharsByUser($uId)
                                                ON uc.UserId = u.UserId
                                                LEFT JOIN CharacterTable as c
                                                ON c.CharacterId = uc.CharacterId
-                                               WHERE ug.UserId = $uId";
+                                               WHERE uc.UserId = $uId";
     if($res = mysqli_query($_SESSION["link"], $sql4))
     {
         $results = array();
@@ -76,13 +76,13 @@ function SetDndCharsByUser($uId)
 
     Get All D&D Character Info From DndCharacterTable By Filtering UserDndCharacterTable On UserId
      */
-    $sql4 = "SELECT c.Name, c.Race, c.Class, c.Level, c.MaxHealth, c.Strength, c.Dexterity, c.Constitution, c.Intelligence, c.Wisdom, c.Charisma, c.AdditionalDetails, c.DndCharacterId
+    $sql4 = "SELECT c.Name, c.Race, c.Class, c.Level, c.MaxHealth, c.Strength, c.Dexterity, c.Constitution, c.Intelligence, c.Wisdom, c.Charisma, c.AdditionalDetails, c.dndCharacterId
                                                FROM UserDndCharacterTable as uc
                                                LEFT JOIN UserTable as u
                                                ON uc.UserId = u.UserId
-                                               LEFT JOIN DndCharacterTable as c
-                                               ON c.DndCharacterId = uc.DndCharacterId
-                                               WHERE ug.UserId = $uId";
+                                               LEFT JOIN dndCharacterTable as c
+                                               ON c.dndCharacterId = uc.dndCharacterId
+                                               WHERE uc.UserId = $uId";
     if($res = mysqli_query($_SESSION["link"], $sql4))
     {
         $results = array();

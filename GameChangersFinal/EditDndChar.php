@@ -35,7 +35,7 @@ if(isset($_POST['dndcharacterName']) &&
 
     $tempCharId = $_SESSION['EditIds'][1];
 
-    $sql = "UPDATE DndCharacterTable SET Name = '$tempName', Race = '$tempRace', Class = '$tempClass', Level = '$tempLevel', MaxHealth = $tempMaxHealth, Strength = '$tempStr', Dexterity = '$tempDex', Constitution = '$tempCon', Intelligence = '$tempInt', Wisdom = '$tempWis', Charisma = '$tempCha', AdditionalDetails = '$tempDetails' WHERE DndCharacterId = $tempCharId";
+    $sql = "UPDATE dndCharacterTable SET Name = '$tempName', Race = '$tempRace', Class = '$tempClass', Level = '$tempLevel', MaxHealth = $tempMaxHealth, Strength = '$tempStr', Dexterity = '$tempDex', Constitution = '$tempCon', Intelligence = '$tempInt', Wisdom = '$tempWis', Charisma = '$tempCha', AdditionalDetails = '$tempDetails' WHERE dndCharacterId = $tempCharId";
 
     mysqli_query($_SESSION["link"], $sql);
     SetDndCharsByUser($_SESSION["id"]);

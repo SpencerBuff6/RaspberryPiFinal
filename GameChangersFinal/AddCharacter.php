@@ -27,7 +27,7 @@ if(isset($_POST['characterName']) &&
     $tempRace = trim($_POST['characterRace']);
     $tempDetails = trim($_POST['characterDetails']);
 
-    $sql = "INSERT INTO CharacterTable (Name, Gender, Height, Weight, Age, Hair, Eyes, Race, AdditionalDetails) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO CharacterTable (Name, Gender, Height, Weight, Age, Hair, EyeColor, Race, AdditionalDetails) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if($stmt = mysqli_prepare($_SESSION["link"], $sql))
     {
         mysqli_stmt_bind_param($stmt, "ssssissss", $tempName, $tempGender, $tempHeight, $tempWeight, $tempAge, $tempHair, $tempEyes, $tempRace, $tempDetails);
@@ -39,7 +39,7 @@ if(isset($_POST['characterName']) &&
             $tempUserId = $_SESSION["id"];
             $tempCharacterId = null;
 
-            $sql2 = "SELECT CharacterId FROM CharacterTable WHERE Name = ? AND Gender = ? AND Height = ? AND Weight = ? AND Age = ? AND Hair = ? AND Eyes = ? AND Race = ? AND AdditionalDetails = ? LIMIT 1";
+            $sql2 = "SELECT CharacterId FROM CharacterTable WHERE Name = ? AND Gender = ? AND Height = ? AND Weight = ? AND Age = ? AND Hair = ? AND EyeColor = ? AND Race = ? AND AdditionalDetails = ? LIMIT 1";
             if($stmt = mysqli_prepare($_SESSION["link"], $sql2))
             {
                 mysqli_stmt_bind_param($stmt, 'ssssissss', $tempName, $tempGender, $tempHeight, $tempWeight, $tempAge, $tempHair, $tempEyes, $tempRace, $tempDetails);
@@ -103,7 +103,7 @@ if(isset($_POST['characterName']) &&
     <fieldset>
         <label for="characterName">Name:</label><input type="text" name="characterName" size="20" /><br />
         <label for="characterGender">Gender:</label><input type="text" name="characterGender" size="20" /><br />
-        <label for="characterHeight">Height:</label><input type="text" name="characterHeight" size="20" /><br />
+        <label for="characterHeight">Height (in meters):</label><input type="text" name="characterHeight" size="20" /><br />
         <label for="characterWeight">Weight:</label><input type="text" name="characterWeight" size="20" /><br />
         <label for="characterAge">Age:</label><input type="text" name="characterAge" size="20" /><br />
         <label for="characterHair">Hair Details:</label><input type="text" name="characterHair" size="20" /><br />
