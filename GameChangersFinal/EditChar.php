@@ -32,7 +32,7 @@ if(isset($_POST['characterName']) &&
     $sql = "UPDATE CharacterTable SET Name = '$tempName', Gender = '$tempGender', Height = '$tempHeight', Weight = '$tempWeight', Age = $tempAge, Hair = '$tempHair', Eyes = '$tempEyes', Race = '$tempRace', AdditionalDetails = '$tempDetails' WHERE CharacterId = $tempCharId";
 
     mysqli_query($_SESSION["link"], $sql);
-    SetGamesByUser($_SESSION["id"]);
+    SetCharsByUser($_SESSION["id"]);
     mysqli_close($_SESSION["link"]);
 
     header("location: index.php");

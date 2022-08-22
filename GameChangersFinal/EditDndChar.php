@@ -38,7 +38,7 @@ if(isset($_POST['dndcharacterName']) &&
     $sql = "UPDATE DndCharacterTable SET Name = '$tempName', Race = '$tempRace', Class = '$tempClass', Level = '$tempLevel', MaxHealth = $tempMaxHealth, Strength = '$tempStr', Dexterity = '$tempDex', Constitution = '$tempCon', Intelligence = '$tempInt', Wisdom = '$tempWis', Charisma = '$tempCha', AdditionalDetails = '$tempDetails' WHERE DndCharacterId = $tempCharId";
 
     mysqli_query($_SESSION["link"], $sql);
-    SetGamesByUser($_SESSION["id"]);
+    SetDndCharsByUser($_SESSION["id"]);
     mysqli_close($_SESSION["link"]);
 
     header("location: index.php");
