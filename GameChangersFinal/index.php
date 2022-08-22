@@ -14,35 +14,65 @@ if (!isset($_SESSION["dndCharacters"])) $_SESSION["dndCharacters"] = [
 include_once "./Wrappers/header.php";
 include_once "./Wrappers/menu.php";
 
-//function DeleteGame(int $index)
-//{
-//    // Get GameId For Use With UserGameTable and GameTable
-//    $gId = $_SESSION["games"][$index][4];
+function DeleteChar(int $index)
+{
+    // Get CharacterId For Use With UserCharacterTable and CharacterTable
+    $gId = $_SESSION["characters"][$index][9];
 
-//    // Delete From GameTable
-//    $sql = "DELETE FROM UserGameTable WHERE GameId = $gId";
-//    mysqli_query($_SESSION["link"], $sql);
+    // Delete From UserCharacterTable
+    $sql = "DELETE FROM UserCharacterTable WHERE CharacterId = $gId";
+    mysqli_query($_SESSION["link"], $sql);
 
-//    // Delete From UserGameTable
-//    $sql2 = "DELETE FROM GameTable WHERE GameId = $gId";
-//    mysqli_query($_SESSION["link"], $sql2);
+    // Delete From CharacterTable
+    $sql2 = "DELETE FROM CharacterTable WHERE CharacterId = $gId";
+    mysqli_query($_SESSION["link"], $sql2);
 
-//    SetGamesByUser($_SESSION["id"]);
-//}
+    SetCharsByUser($_SESSION["id"]);
+}
 
-//if (isset($_POST['DeleteGame']))
-//{
-//    DeleteGame($_POST['DeleteGame']);
-//}
+function DeleteDndChar(int $index)
+{
+    // Get DndCharacterId For Use With UserDndCharacterTable and DndCharacterTable
+    $gId = $_SESSION["dndCharacters"][$index][12];
 
-//if (isset($_POST['EditGame']))
-//{
-//    $_SESSION['EditIds'] = [
-//        $_POST['EditGame'],
-//        $_SESSION["games"][$_POST['EditGame']][4]
-//    ];
-//    header("location: EditGame.php");
-//}
+    // Delete From UserDndCharacterTable
+    $sql = "DELETE FROM UserDndCharacterTable WHERE DndCharacterId = $gId";
+    mysqli_query($_SESSION["link"], $sql);
+
+    // Delete From DndCharacterTable
+    $sql2 = "DELETE FROM DndCharacterTable WHERE DndCharacterId = $gId";
+    mysqli_query($_SESSION["link"], $sql2);
+
+    SetDndCharsByUser($_SESSION["id"]);
+}
+
+if (isset($_POST['DeleteChar']))
+{
+    DeleteChar($_POST['DeleteChar']);
+}
+
+if (isset($_POST['EditChar']))
+{
+    $_SESSION['EditIds'] = [
+        $_POST['EditChar'],
+        $_SESSION["games"][$_POST['EditChar']][4]
+    ];
+    header("location: EditChar.php");
+}
+
+if (isset($_POST['DeleteDndChar']))
+{
+    DeleteGame($_POST['DeleteDndChar']);
+}
+
+if (isset($_POST['EditDndChar']))
+{
+    $_SESSION['EditIds'] = [
+        $_POST['EditDndChar'],
+        $_SESSION["games"][$_POST['EditDndChar']][4]
+    ];
+    header("location: EditDndChar.php");
+}
 
 //print_r($_SESSION["games"]);
 ?>
@@ -66,19 +96,34 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SE
                 Name
             </th>
             <th>
-                Release Date
+                Gender
             </th>
             <th>
-                Genre
+                Height
             </th>
             <th>
-                Rating
+                Weight
             </th>
             <th>
-                Delete?
+                Age
+            </th>
+            <th>
+                Hair
+            </th>
+            <th>
+                Eye Color
+            </th>
+            <th>
+                Race
+            </th>
+            <th>
+                Additional Details
             </th>
             <th>
                 Edit?
+            </th>
+            <th>
+                Delete?
             </th>
         </tr>";
     for($i = 0; $i < count($_SESSION["characters"]); $i++)
@@ -97,6 +142,21 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SE
             </td>
             <td>
                 $g[3]
+            </td>
+            <td>
+                $g[4]
+            </td>
+            <td>
+                $g[5]
+            </td>
+            <td>
+                $g[6]
+            </td>
+            <td>
+                $g[7]
+            </td>
+            <td>
+                $g[8]
             </td>
             <td>
                 <form method='post'>
@@ -122,13 +182,37 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["dndCharacters"]) && count($
                 Name
             </th>
             <th>
-                Release Date
+                Race
             </th>
             <th>
-                Genre
+                Class
             </th>
             <th>
-                Rating
+                Level
+            </th>
+            <th>
+                Max Health
+            </th>
+            <th>
+                Strength
+            </th>
+            <th>
+                Dexterity
+            </th>
+            <th>
+                Constitution
+            </th>
+            <th>
+                Intelligence
+            </th>
+            <th>
+                Wisdom
+            </th>
+            <th>
+                Charisma
+            </th>
+            <th>
+                AdditionalDetails
             </th>
             <th>
                 Delete?
@@ -153,6 +237,30 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["dndCharacters"]) && count($
             </td>
             <td>
                 $g[3]
+            </td>
+            <td>
+                $g[4]
+            </td>
+            <td>
+                $g[5]
+            </td>
+            <td>
+                $g[6]
+            </td>
+            <td>
+                $g[7]
+            </td>
+            <td>
+                $g[8]
+            </td>
+            <td>
+                $g[9]
+            </td>
+            <td>
+                $g[10]
+            </td>
+            <td>
+                $g[11]
             </td>
             <td>
                 <form method='post'>
