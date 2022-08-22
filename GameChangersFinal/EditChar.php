@@ -14,10 +14,15 @@ include_once "./Wrappers/menu.php";
 
 <form method="post" action="">
     <fieldset>
-        <!--<label for="gameName">Game Name:</label><input type="text" name="gameName" value="<?php echo $_SESSION['games'][$_SESSION['EditIds'][0]][0] ?>" size="20" /><br />
-        <label for="releaseDate">Release Date:</label><input type="text" name="releaseDate" value="<?php echo $_SESSION['games'][$_SESSION['EditIds'][0]][1] ?>" size="20" /><br />
-        <label for="genre">Genre:</label><input type="text" name="genre" value="<?php echo $_SESSION['games'][$_SESSION['EditIds'][0]][2] ?>" size="20" /><br />
-        <label for="rating">Rating:</label><input type="text" name="rating" value="<?php echo $_SESSION['games'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />-->
+        <label for="characterName">Name:</label><input type="text" name="characterName" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][0] ?>" size="20" /><br />
+        <label for="characterGender">Gender:</label><input type="text" name="characterGender" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][1] ?>" size="20" /><br />
+        <label for="characterHeight">Height:</label><input type="text" name="characterHeight" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][2] ?>" size="20" /><br />
+        <label for="characterWeight">Weight:</label><input type="text" name="characterWeight" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
+        <label for="characterAge">Age:</label><input type="text" name="characterAge" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
+        <label for="characterHair">Hair Details:</label><input type="text" name="characterHair" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
+        <label for="characterEyes">Eye Color:</label><input type="text" name="characterEyes" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
+        <label for="characterRace">Race:</label><input type="text" name="characterRace" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
+        <label for="characterDetails">Additional Details:</label><input type="text" name="characterDetails" value="<?php echo $_SESSION['characters'][$_SESSION['EditIds'][0]][3] ?>" size="20" /><br />
     </fieldset>
     <input class="btn" type="submit" name="CharSubmit" value="Edit Character" />
 </form>
