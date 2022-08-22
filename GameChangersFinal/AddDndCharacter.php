@@ -13,10 +13,19 @@ include_once "./Wrappers/menu.php";
 
 <form method="post" action="">
     <fieldset>
-        <!--<label for="gameName">Game Name:</label><input type="text" name="gameName" size="20" /><br />
-        <label for="releaseDate">Release Date:</label><input type="text" name="releaseDate" size="20" /><br />
-        <label for="genre">Genre:</label><input type="text" name="genre" size="20" /><br />
-        <label for="rating">Rating:</label><input type="text" name="rating" size="20" /><br />-->
+        <label for="dndcharacterName">dndName:</label><input type="text" name="dndcharacterName" size="20" /><br />
+        <label for="dndcharacterRace">dndRace:</label><input type="text" name="dndcharacterRace" size="20" /><br />
+        <label for="dndcharacterClass">dndClass:</label><input type="text" name="dndcharacterClass" size="20" /><br />
+        <label for="dndcharacterLevel">dndLevel:</label><input type="text" name="dndcharacterLevel" size="20" /><br />
+        <label for="dndcharacterMaxHealth">dndMaxHealth:</label><input type="text" name="dndcharacterMaxHealth" size="20" /><br />
+        <label for="dndcharacterStrength">dndStrength:</label><input type="text" name="dndcharacterStrength" size="20" /><br />
+        <label for="dndcharacterDexterity">dndDexterity:</label><input type="text" name="dndcharacterDexterity" size="20" /><br />
+        <label for="dndcharacterConstitution">dndConstitution:</label><input type="text" name="dndcharacterConstitution" size="20" /><br />
+        <label for="dndcharacterIntelligence">dndIntelligence:</label><input type="text" name="dndcharacterIntelligence" size="20" /><br />
+        <label for="dndcharacterWisdom">dndWisdom:</label><input type="text" name="dndcharacterWisdom" size="20" /><br />
+        <label for="dndcharacterChrisma">dndChrisma:</label><input type="text" name="dndcharacterChrisma" size="20" /><br />
+        <label for="dndcharacterAdditionalDetails">dndAdditionalDetails:</label><input type="text" name="dndcharacterAdditionalDetails" size="20" /><br />
+
     </fieldset>
     <input class="btn" type="submit" name="DndCharSubmit" value="Add D&D Character" />
 </form>
