@@ -3,17 +3,27 @@ session_start();
 
 $pageName = "Home";
 
+// Prevents null errors when trying to access property of null
 if (!isset($_SESSION["characters"])) $_SESSION["characters"] = [
 
 ];
 
+// Prevents null errors when trying to access property of null
 if (!isset($_SESSION["dndCharacters"])) $_SESSION["dndCharacters"] = [
 
 ];
 
+// Sets character and dndCharacter arrays if logged in
+if (isset($_SESSION["id"]))
+{
+    SetCharsByUser($_SESSION["id"]);
+    SetDndCharsByUser($_SESSION["id"]);
+}
+
 include_once "./Wrappers/header.php";
 include_once "./Wrappers/menu.php";
 
+// Deletes Character and UserCharacter from database, resets 'local' character array
 function DeleteChar(int $index)
 {
     // Get CharacterId For Use With UserCharacterTable and CharacterTable
@@ -27,9 +37,11 @@ function DeleteChar(int $index)
     $sql2 = "DELETE FROM CharacterTable WHERE CharacterId = $gId";
     mysqli_query($_SESSION["link"], $sql2);
 
+    // Grab User's Characters
     SetCharsByUser($_SESSION["id"]);
 }
 
+// Deletes dndCharacter and UserDndCharacter from database, resets 'local' dndCharacter array
 function DeleteDndChar(int $index)
 {
     // Get DndCharacterId For Use With UserDndCharacterTable and DndCharacterTable
@@ -43,16 +55,21 @@ function DeleteDndChar(int $index)
     $sql2 = "DELETE FROM dndCharacterTable WHERE dndCharacterId = $gId";
     mysqli_query($_SESSION["link"], $sql2);
 
+    // Grab User's D&D Characters
     SetDndCharsByUser($_SESSION["id"]);
 }
 
+// If DeleteChar button clicked
 if (isset($_POST['DeleteChar']))
 {
+    // Deletes from CharacterTable and UserCharacterTable according to CharId
     DeleteChar($_POST['DeleteChar']);
 }
 
+// If EditChar button clicked
 if (isset($_POST['EditChar']))
 {
+    // Stores index in 'local' character array, and id for CharacterTable
     $_SESSION['EditIds'] = [
         $_POST['EditChar'],
         $_SESSION["characters"][$_POST['EditChar']][9]
@@ -60,13 +77,17 @@ if (isset($_POST['EditChar']))
     header("location: EditChar.php");
 }
 
+// If DeleteDndChar button clicked
 if (isset($_POST['DeleteDndChar']))
 {
+    // Deletes from dndCharacterTable and UserDndCharacterTable according to DndCharId
     DeleteDndChar($_POST['DeleteDndChar']);
 }
 
+// If EditDndChar button clicked
 if (isset($_POST['EditDndChar']))
 {
+    // Stores index in 'local' dndCharacter array, and id for dndCharacterTable
     $_SESSION['EditIds'] = [
         $_POST['EditDndChar'],
         $_SESSION["dndCharacters"][$_POST['EditDndChar']][12]
@@ -86,7 +107,7 @@ if (isset($_POST['EditDndChar']))
 </p>
 
 <?php
-
+// If logged in and 'local' character array is not empty
 if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SESSION["characters"]) > 0)
 {
     echo "
@@ -176,7 +197,7 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION["characters"]) && count($_SE
 echo "<br />";
 echo "<br />";
 echo "<br />";
-
+// If logged in and 'local' dndCharacter array is not empty
 if (isset($_SESSION['loggedin']) && isset($_SESSION["dndCharacters"]) && count($_SESSION["dndCharacters"]) > 0)
 {
     echo "

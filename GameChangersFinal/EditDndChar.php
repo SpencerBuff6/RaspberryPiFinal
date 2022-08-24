@@ -6,7 +6,7 @@ $pageName = "Edit D&D Character";
 include_once "./Wrappers/header.php";
 include_once "./Wrappers/menu.php";
 
-// If Adding Character Proper
+// If all fields are set to something
 if(isset($_POST['dndcharacterName']) &&
    isset($_POST['dndcharacterRace']) &&
    isset($_POST['dndcharacterClass']) &&
@@ -20,11 +20,12 @@ if(isset($_POST['dndcharacterName']) &&
    isset($_POST['dndcharacterCharisma']) &&
    isset($_POST['dndcharacterAdditionalDetails']))
 {
+    // Remove spaces from beginning and end of each field, store in variable
     $tempName = trim($_POST['dndcharacterName']);
     $tempRace = trim($_POST['dndcharacterRace']);
     $tempClass = trim($_POST['dndcharacterClass']);
     $tempLevel = trim($_POST['dndcharacterLevel']);
-    $tempMaxHealth = intval(trim($_POST['dndcharacterMaxHealth']));
+    $tempMaxHealth = intval(trim($_POST['dndcharacterMaxHealth'])); // Cast string to int
     $tempStr = trim($_POST['dndcharacterStrength']);
     $tempDex = trim($_POST['dndcharacterDexterity']);
     $tempCon = trim($_POST['dndcharacterConstitution']);
@@ -33,14 +34,22 @@ if(isset($_POST['dndcharacterName']) &&
     $tempCha = trim($_POST['dndcharacterCharisma']);
     $tempDetails = trim($_POST['dndcharacterAdditionalDetails']);
 
+    // Get dndCharacterId from session
     $tempCharId = $_SESSION['EditIds'][1];
 
+    // Query to update all fields in dndCharacterTable according to dndCharacterId
     $sql = "UPDATE dndCharacterTable SET Name = '$tempName', Race = '$tempRace', Class = '$tempClass', Level = '$tempLevel', MaxHealth = $tempMaxHealth, Strength = '$tempStr', Dexterity = '$tempDex', Constitution = '$tempCon', Intelligence = '$tempInt', Wisdom = '$tempWis', Charisma = '$tempCha', AdditionalDetails = '$tempDetails' WHERE dndCharacterId = $tempCharId";
 
+    // Perform query
     mysqli_query($_SESSION["link"], $sql);
+
+    // Grab User's dndCharacters, to replace local, outdated version of this dndCharacter
     SetDndCharsByUser($_SESSION["id"]);
+
+    // Closes db connection
     mysqli_close($_SESSION["link"]);
 
+    // Redirect to home page
     header("location: index.php");
 }
 ?>

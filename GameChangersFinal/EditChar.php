@@ -6,7 +6,7 @@ $pageName = "Edit Character";
 include_once "./Wrappers/header.php";
 include_once "./Wrappers/menu.php";
 
-// If Adding Character Proper
+// If all fields are set to something
 if(isset($_POST['characterName']) &&
    isset($_POST['characterGender']) &&
    isset($_POST['characterHeight']) &&
@@ -17,24 +17,33 @@ if(isset($_POST['characterName']) &&
    isset($_POST['characterRace']) &&
    isset($_POST['characterDetails']))
 {
+    // Remove spaces from beginning and end of each field, store in variable
     $tempName = trim($_POST['characterName']);
     $tempGender = trim($_POST['characterGender']);
     $tempHeight = trim($_POST['characterHeight']);
     $tempWeight = trim($_POST['characterWeight']);
-    $tempAge = intval(trim($_POST['characterAge']));
+    $tempAge = intval(trim($_POST['characterAge'])); // Cast string to int
     $tempHair = trim($_POST['characterHair']);
     $tempEyes = trim($_POST['characterEyes']);
     $tempRace = trim($_POST['characterRace']);
     $tempDetails = trim($_POST['characterDetails']);
 
+    // Get CharacterId from session
     $tempCharId = $_SESSION['EditIds'][1];
 
+    // Query to update all fields in CharacterTable according to CharacterId
     $sql = "UPDATE CharacterTable SET Name = '$tempName', Gender = '$tempGender', Height = '$tempHeight', Weight = '$tempWeight', Age = $tempAge, Hair = '$tempHair', EyeColor = '$tempEyes', Race = '$tempRace', AdditionalDetails = '$tempDetails' WHERE CharacterId = $tempCharId";
 
+    // Perform query
     mysqli_query($_SESSION["link"], $sql);
+
+    // Grab User's Characters, to replace local, outdated version of this character
     SetCharsByUser($_SESSION["id"]);
+
+    // Closes db connection
     mysqli_close($_SESSION["link"]);
 
+    // Redirect to home page
     header("location: index.php");
 }
 ?>

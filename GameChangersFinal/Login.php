@@ -4,6 +4,7 @@ session_start();
 
 $pageName = "Log In";
 
+// If user is logged in, go to home page
 if(isset($_SESSION["logged in"]) && $_SESSION["logged in"] === true )
 {
     header("location: index.php");
@@ -19,6 +20,7 @@ $username_err = $password_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    // If username field is empty or just spaces
     if(empty(trim($_POST["username"])))
     {
         $username_err = "Please enter username.";
@@ -28,6 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $username = trim($_POST["username"]);
     }
 
+    // If password field is empty or just spaces
     if(empty(trim($_POST["password"])))
     {
         $password_err = "Please enter password.";
@@ -37,8 +40,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $password = trim($_POST["password"]);
     }
 
+    // If there is no error with username or password fields
     if(empty($username_err) && empty($password_err))
     {
+        // Check if user exists
         $sql = "SELECT * FROM UserTable WHERE UserName = ?";
 
         if($stmt = mysqli_prepare($_SESSION["link"], $sql))
@@ -46,16 +51,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             mysqli_stmt_bind_param($stmt, 's', $param_username);
             $param_username = $username;
 
-
+            // If $sql query executes proper
             if(mysqli_stmt_execute($stmt))
             {
+                // Stores result of query
                 mysqli_stmt_store_result($stmt);
 
+                // If 1 user returned
                 if(mysqli_stmt_num_rows($stmt) == 1)
                 {
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt))
                     {
+                        // If password is correct
                         if(password_verify($password, $hashed_password))
                         {
                             session_start();
@@ -66,6 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
                             header("location: index.php");
                         }
+                        // If password wrong
                         else
                         {
                             $login_err = "Invalid username or password.";
@@ -80,9 +89,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                 {
                     echo "Oops! Something went wrong. Please try again later";
                 }
+                // Closes prepared statement
                 mysqli_stmt_close($stmt);
             }
         }
+        // Close db connection
         mysqli_close($_SESSION["link"]);
     }
 }

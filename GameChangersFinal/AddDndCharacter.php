@@ -6,7 +6,7 @@ $pageName = "Add D&D Character";
 include_once "./Wrappers/header.php";
 include_once "./Wrappers/menu.php";
 
-// If Adding Character Proper
+// If all fields set to something
 if(isset($_POST['dndcharacterName']) &&
    isset($_POST['dndcharacterRace']) &&
    isset($_POST['dndcharacterClass']) &&
@@ -20,11 +20,12 @@ if(isset($_POST['dndcharacterName']) &&
    isset($_POST['dndcharacterCharisma']) &&
    isset($_POST['dndcharacterAdditionalDetails']))
 {
+    // Remove spaces from beginning and end
     $tempName = trim($_POST['dndcharacterName']);
     $tempRace = trim($_POST['dndcharacterRace']);
     $tempClass = trim($_POST['dndcharacterClass']);
     $tempLevel = trim($_POST['dndcharacterLevel']);
-    $tempMaxHealth = intval(trim($_POST['dndcharacterMaxHealth']));
+    $tempMaxHealth = intval(trim($_POST['dndcharacterMaxHealth'])); // Cast string to int
     $tempStr = trim($_POST['dndcharacterStrength']);
     $tempDex = trim($_POST['dndcharacterDexterity']);
     $tempCon = trim($_POST['dndcharacterConstitution']);
@@ -33,27 +34,31 @@ if(isset($_POST['dndcharacterName']) &&
     $tempCha = trim($_POST['dndcharacterCharisma']);
     $tempDetails = trim($_POST['dndcharacterAdditionalDetails']);
 
+    // Query to add dndCharacter to dndCharacterTable with above values
     $sql = "INSERT INTO dndCharacterTable (Name, Race, Class, Level, MaxHealth, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, AdditionalDetails) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     if($stmt = mysqli_prepare($_SESSION["link"], $sql))
     {
         mysqli_stmt_bind_param($stmt, "ssssisssssss", $tempName, $tempRace, $tempClass, $tempLevel, $tempMaxHealth, $tempStr, $tempDex, $tempCon, $tempInt, $tempWis, $tempCha, $tempDetails);
 
-        // If D&D Character Added Proper
+        // If query executes proper
         if(mysqli_stmt_execute($stmt))
         {
-            // Get UserId and DndCharacterId
+            // Get UserId and dndCharacterId
             $tempUserId = $_SESSION["id"];
             $tempCharacterId = null;
 
+            // Get dndCharacterId from newly added dndCharacter
             $sql2 = "SELECT dndCharacterId FROM dndCharacterTable WHERE Name = ? AND Race = ? AND Class = ? AND Level = ? AND MaxHealth = ? AND Strength = ? AND Dexterity = ? AND Constitution = ? AND Intelligence = ? AND Wisdom = ? AND Charisma = ? AND AdditionalDetails = ? LIMIT 1";
             if($stmt = mysqli_prepare($_SESSION["link"], $sql2))
             {
                 mysqli_stmt_bind_param($stmt, 'ssssisssssss', $tempName, $tempRace, $tempClass, $tempLevel, $tempMaxHealth, $tempStr, $tempDex, $tempCon, $tempInt, $tempWis, $tempCha, $tempDetails);
 
+                // If query 2 executes proper
                 if(mysqli_stmt_execute($stmt))
                 {
                     mysqli_stmt_store_result($stmt);
 
+                    // If exactly 1 character returned
                     if(mysqli_stmt_num_rows($stmt) == 1)
                     {
                         // Store DndCharacterId of Newly Added D&D Character
@@ -61,18 +66,21 @@ if(isset($_POST['dndcharacterName']) &&
 
                         if(mysqli_stmt_fetch($stmt))
                         {
+                            // Add UserId and dndCharacterId to UserDndCharacterTable (connect dndCharacter data to User data)
                             $sql3 = "INSERT INTO UserDndCharacterTable (UserId, dndCharacterId) VALUES (?, ?)";
                             if($stmt = mysqli_prepare($_SESSION["link"], $sql3))
                             {
                                 mysqli_stmt_bind_param($stmt, "ii", $tempUserId, $tempCharacterId);
 
-                                // If UserDndCharacterTable Inserted Into
+                                // If query 3 executes proper
                                 if(mysqli_stmt_execute($stmt))
                                 {
+                                    // Grab User's dndCharacters, since dndCharacterTable updated
                                     SetDndCharsByUser($_SESSION["id"]);
                                 }
                             }
 
+                            // Redirect to home page
                             header("location: index.php");
                         }
                     }
@@ -87,6 +95,7 @@ if(isset($_POST['dndcharacterName']) &&
                 }
             }
 
+            // Redirect to home page
             header("location: index.php");
         }
         else
@@ -94,9 +103,11 @@ if(isset($_POST['dndcharacterName']) &&
             echo "Oops! Something went wrong. Please try again later.";
         }
 
+        // Closes prepared statement
         mysqli_stmt_close($stmt);
     }
 
+    // Close db connection
     mysqli_close($_SESSION["link"]);
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Logged Out Menu
+// Menu When Logged Out
 $menuOut = [
     0 => [
         0 => "Home Page",
@@ -16,7 +16,7 @@ $menuOut = [
     ]
 ];
 
-// Logged In Menu
+// Menu When Logged In
 $menuIn = [
     0 => [
         0 => "Home Page",
@@ -36,15 +36,17 @@ $menuIn = [
     ]
 ];
 
+// Sets menu according to if user is logged in or not
 $menu = (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) ? $menuIn : $menuOut;
 
 ?>
 
 <br />
 <?php
-    foreach ($menu as [$name, $link])
-    {
-        echo "<a href=$link> $name</a> &nbsp; &nbsp;";
-    }
+// Creates menu button for each link in menu array
+foreach ($menu as [$name, $link])
+{
+    echo "<a href=$link> $name</a> &nbsp; &nbsp;";
+}
 ?>
 <br />
